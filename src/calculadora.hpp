@@ -7,7 +7,7 @@ using namespace std;
 
 void operaciones(int num1, int num2, string operacion);
 
-void convertitBase(int numero);
+void convertirBaseGeneral();
 
 void complementos(int numero);
 
