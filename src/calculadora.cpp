@@ -27,6 +27,8 @@ void operaciones(int num1, int num2, string operacion) {
 }
 
 
+
+
 //2.conversiones de base
 void convertitBase(int numero) {
     cout << "Decimal: " << numero << endl;
@@ -40,7 +42,6 @@ void convertitBase(int numero) {
     ss << hex << uppercase << numero;
     cout << "Hexadecimal: " << ss.str() << endl;
 }
-
 
 //3.complementos a 1 y 2
 void complementos(int numero) {
@@ -57,15 +58,8 @@ void complementos(int numero) {
 }
 
 
-void convertirBaseGeneral() {
-    string numero_str, base_str;
+void convertirBaseGeneral(const std::string& numero_str, const std::string& base_str) {
     int base = 10;
-    cout << "Ingrese el número: ";
-    cin >> numero_str;
-    cout << "Ingrese la base de entrada (decimal, binario, octal, hexadecimal): ";
-    cin >> base_str;
-
-    // Determinar la base
     if (base_str == "decimal") base = 10;
     else if (base_str == "binario") base = 2;
     else if (base_str == "octal") base = 8;
@@ -75,7 +69,6 @@ void convertirBaseGeneral() {
         return;
     }
 
-    // Convertir a decimal
     int numero_decimal = 0;
     try {
         numero_decimal = stoi(numero_str, nullptr, base);
@@ -84,7 +77,6 @@ void convertirBaseGeneral() {
         return;
     }
 
-    // Mostrar en todas las bases
     cout << "Decimal: " << numero_decimal << endl;
     cout << "Binario: " << bitset<16>(numero_decimal).to_string().substr(bitset<16>(numero_decimal).to_string().find('1')) << endl;
 
@@ -95,6 +87,14 @@ void convertirBaseGeneral() {
     ss.str(""); ss.clear();
     ss << hex << uppercase << numero_decimal;
     cout << "Hexadecimal: " << ss.str() << endl;
+}
+
+// Generador pseudoaleatorio: método del medio del cuadrado
+unsigned int medioCuadrado(unsigned int seed) {
+    unsigned int n = seed * seed; //multiplico la semilla por ella misma, uso los centraless
+    // Si la semilla es pequeña, ajusta el cálculo
+    if (seed < 1000) n *= 1009;   // es menor a 1000, se multiplica n por 1009.
+    return (n / 100) % 10000; //elimino los ultimos dos digitos y tomo los centrales 
 }
 
 
