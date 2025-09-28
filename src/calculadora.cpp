@@ -7,7 +7,7 @@
 
 using namespace std;
 
-
+//1.operaciones aritmeticas
 void operaciones(int num1, int num2, string operacion) {
     if (operacion == "suma") {
         cout << "Resultado de la suma: " << num1 + num2 << endl;
@@ -25,8 +25,6 @@ void operaciones(int num1, int num2, string operacion) {
         cout << "Operacion no reconocida." << endl;
     }
 }
-
-
 
 
 //2.conversiones de base
@@ -47,11 +45,11 @@ void convertitBase(int numero) {
 void complementos(int numero) {
     unsigned short n = static_cast<unsigned short>(numero);
 
-    // Complemento a 1
+    // complemento a 1
     bitset<16> comp1 = ~bitset<16>(n);
     cout << "Complemento a 1: " << comp1 << endl;
 
-    // Complemento a 2
+    // complemento a 2
     unsigned short comp2_val = static_cast<unsigned short>(comp1.to_ulong() + 1);
     bitset<16> comp2(comp2_val);
     cout << "Complemento a 2: " << comp2 << endl;
