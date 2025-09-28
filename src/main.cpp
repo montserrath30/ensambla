@@ -1,5 +1,7 @@
 #include <iostream>
 #include "calculadora.hpp"
+#include <bitset>
+#include <sstream>
 
 using namespace std;
 
@@ -13,7 +15,7 @@ int main() {
     cout << "Seleccione una opción (1-3): ";
     cin >> opcion;  
 
-    if (opcion==1) {
+    if (opcion == 1) {
         int num1, num2;
         string operacion;
 
@@ -44,21 +46,58 @@ int main() {
         cout << "Ingrese la operación (suma, resta, multiplicacion, division): ";
         cin >> operacion;
         operaciones(num1, num2, operacion);
-    } else if (opcion==2) {
+
+
+    } else if (opcion == 2) {    //debo pedir primero la base y luego la semilla o numero
         string numero_str, base_str;
+
+        cout << "Ingrese la base de entrada (decimal, binario, octal, hexadecimal): ";
+        cin >> base_str;
+
         cout << "Ingrese el número o 'rand': ";
         cin >> numero_str;
+
+
         if (numero_str == "rand") {
             cout << "Ingrese semilla para el número: ";
             unsigned int seed; cin >> seed;
             int num = medioCuadrado(seed) % 1000;
             cout << "Número aleatorio generado: " << num << endl;
-            numero_str = to_string(num);
+
+            stringstream ss;
+            if (base_str == "decimal") {
+                numero_str = to_string(num);
+            } else if (base_str == "binario") {
+                string bin_str = bitset<16>(num).to_string();
+                // Elimina ceros a la izquierda
+                size_t first_one = bin_str.find('1');
+                if (first_one != string::npos)
+                    numero_str = bin_str.substr(first_one);
+                else
+                    numero_str = "0";
+           
+            } else if (base_str == "octal") {
+                ss << oct << num;
+                numero_str = ss.str();
+
+            } else if (base_str == "hexadecimal") {
+                ss << hex << uppercase << num;
+                numero_str = ss.str();
+
+            } else {
+                cout << "Base no reconocida." << endl;
+                return 0;
+            
+            
+            }
+            cout << "Número y base elegidos: " << numero_str << ", " << base_str << endl;
         }
-        cout << "Ingrese la base de entrada (decimal, binario, octal, hexadecimal): ";
-        cin >> base_str;
-        convertirBaseGeneral(numero_str, base_str);
-    } else if (opcion==3) {
+         convertirBaseGeneral(numero_str, base_str);
+        }
+       
+
+
+      else if (opcion == 3) {
         string entrada;
         cout << "Ingrese el número o 'rand': ";
         cin >> entrada;
@@ -73,9 +112,10 @@ int main() {
         }
         complementos(num);
 
-    } else {
+    }else {
         cout << "Opción inválida." << endl;
     }
+
     return 0;
 }
 
